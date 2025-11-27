@@ -13,19 +13,19 @@ class Solution {
 public:
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
         //if root is NULL or root = p or root = q then return root as root will be LCA
-        if(root == NULL || root == p || root == q)
+        if(!root)
+            return NULL;
+        
+        if(root == p || root == q)
             return root;
         
         //traverse towards left and right to find LCA
         TreeNode* left = lowestCommonAncestor(root->right, p, q);
         TreeNode* right = lowestCommonAncestor(root->left, p, q);
         
-        //if left is NULL then return right
-        if(left == NULL)
-            return right;
-        //if right is NULL then return NULL
-        else if(right == NULL)
-            return left;
+        //if left is NULL then return right || //if right is NULL then return NULL
+        if(!left || !right)
+            return left ? left : right;
         //if both subtrees are not nullptr then thay have wanted pointers: one has p and anther has q, because we can get something differen than nullptr only if we find p,q or LCA, we find LCA in one of subtrees then we will have nullptr in the other one, because both p and q are available in that subtree where LCA is, so the another one is nullptr
         else
             return root;
