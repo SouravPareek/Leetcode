@@ -23,7 +23,7 @@ public:
         TreeNode* left = lowestCommonAncestor(root->left, p, q);
         TreeNode* right = lowestCommonAncestor(root->right, p, q);
         
-        //if left is NULL then return right || //if right is NULL then return NULL
+        //if left is NULL then return right || //if right is NULL then return left
         if(!left || !right)
             return left ? left : right;
         //if both subtrees are not nullptr then thay have wanted pointers: one has p and anther has q, because we can get something differen than nullptr only if we find p,q or LCA, we find LCA in one of subtrees then we will have nullptr in the other one, because both p and q are available in that subtree where LCA is, so the another one is nullptr
