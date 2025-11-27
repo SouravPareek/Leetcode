@@ -20,8 +20,8 @@ public:
             return root;
         
         //traverse towards left and right to find LCA
-        TreeNode* left = lowestCommonAncestor(root->right, p, q);
-        TreeNode* right = lowestCommonAncestor(root->left, p, q);
+        TreeNode* left = lowestCommonAncestor(root->left, p, q);
+        TreeNode* right = lowestCommonAncestor(root->right, p, q);
         
         //if left is NULL then return right || //if right is NULL then return NULL
         if(!left || !right)
