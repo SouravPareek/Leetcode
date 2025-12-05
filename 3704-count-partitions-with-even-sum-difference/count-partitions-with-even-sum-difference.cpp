@@ -10,12 +10,9 @@ public:
         int temp_sum = 0;
 
         for(int i = 0; i < nums.size()-1; i++){
-            if(i == 0)
-                temp_sum = 0;
-            else
-                temp_sum += nums[i-1];
+                temp_sum += nums[i];
 
-            if(abs((temp_sum)-(sum-temp_sum)) % 2 == 0)
+            if(abs((sum-temp_sum)-(temp_sum)) % 2 == 0)
                 cnt += 1;
         }
         return cnt;
