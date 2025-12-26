@@ -1,4 +1,4 @@
-//self brute
+//self  brute
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
