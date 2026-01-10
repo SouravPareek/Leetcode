@@ -1,29 +1,21 @@
-//self brute
+//editorial optimal
 class Solution {
 private:
-    bool isPalindrome(string s){
-        int i = 0;
-        int j = s.length()-1;
-
-        while(i <= j){
-            if(s[i++] != s[j--])
-                return false;
+    int cntPalindrome(string s, int st, int end){
+        int cnt = 0;
+        while(st>= 0 && end < s.length() && s[st--] == s[end++]){
+            cnt++;
         }
-        return true;
+        return cnt;
     }
 public:
     int countSubstrings(string s) {
-        int cnt = 0;
+        int ans = 0;
         for(int i = 0; i < s.length(); i++){
-            string test = "";
-            for(int j = i; j < s.length(); j++){
-                test += s[j];
-
-                if(isPalindrome(test))
-                cnt += 1;
-            }
+            ans += cntPalindrome(s, i, i);
+            ans += cntPalindrome(s, i, i+1);
         }
 
-        return cnt;
+        return ans;
     }
 };
