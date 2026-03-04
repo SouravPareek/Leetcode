@@ -1,16 +1,16 @@
-//self using tabulation
+//self using tabulation with space optimized
 class Solution {
 public:
     int climbStairs(int n) {
-        vector<int> dp(n+1, -1);
-        dp[0] = 1;
-        if(n >= 1)
-            dp[1] = 1;
+        int step0 = 1;
+        int step1 = 1;
         
         for(int i = 2; i <= n; i++){
-            dp[i] = dp[i-1] + dp[i-2];
+            int ithStep = step0 + step1;
+            step0 = step1;
+            step1 = ithStep;
         }
 
-        return dp[n];
+        return step1;
     }
 };
