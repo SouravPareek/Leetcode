@@ -1,16 +1,18 @@
-//self using tabulation with space optimized
+//self using memoization
 class Solution {
+private:
+    int helper(vector<int>& dp, int n){
+        if(n <= 1)
+            return 1;
+        
+        if(dp[n] != -1)
+            return dp[n];
+
+        return dp[n] = helper(dp, n-1) + helper(dp, n-2);
+    }
 public:
     int climbStairs(int n) {
-        int step0 = 1;
-        int step1 = 1;
-        
-        for(int i = 2; i <= n; i++){
-            int ithStep = step0 + step1;
-            step0 = step1;
-            step1 = ithStep;
-        }
-
-        return step1;
+        vector<int> dp(n+1, -1);
+        return helper(dp, n);
     }
 };
