@@ -2,16 +2,14 @@
 class Solution {
 public:
     int firstUniqueEven(vector<int>& nums) {
-        int n = nums.size();
+        vector<int> hash(101, 0);
 
-        unordered_map<int, int> mpp;
-
-        for(int i = 0; i < n; i++){
-            mpp[nums[i]] += 1;
+        for(int it : nums){
+            hash[it] += 1;
         }
 
         for(int it : nums){
-            if(it%2 == 0 && mpp[it] == 1)
+            if(it%2 == 0 && hash[it] == 1)
                 return it;
         }
         return -1;
