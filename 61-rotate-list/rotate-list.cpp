@@ -8,34 +8,39 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
+
+ //cleaner
 class Solution {
 public:
     ListNode* rotateRight(ListNode* head, int k) {
         if(!head || !head->next)
             return head;
         
-        ListNode* temp = head;
+        ListNode* tail = head;
 
-        int cnt = 0;
-        while(temp->next){
+        int cnt = 1;
+        while(tail->next){
             cnt += 1;
-            temp = temp->next;
+            tail = tail->next;
         }
-        if(temp){
-            cnt += 1;
-        }
-        temp->next = head;
+        tail->next = head;
 
         k = k%cnt;
-        temp = head;
+
+        if(k == 0){
+            tail->next = nullptr;
+            return head;
+        }
+
+        tail = head;
 
         int breaking_point = cnt-k-1;
 
         while(breaking_point--){
-            temp = temp->next;
+            tail = tail->next;
         }
-        head = temp->next;
-        temp->next = nullptr;
+        head = tail->next;
+        tail->next = nullptr;
 
         return head;
     }
