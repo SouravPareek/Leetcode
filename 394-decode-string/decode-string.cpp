@@ -12,18 +12,16 @@ public:
             }else{
                 string temp = "";
                 while(st.top() != '['){
-                    temp += st.top();
+                    temp = st.top() + temp;
                     st.pop();
                 }
                 st.pop();
-                reverse(temp.begin(), temp.end());
 
                 string num_str = "";
                 while(!st.empty() && isdigit(st.top())){
-                    num_str += st.top();
+                    num_str = st.top() + num_str;
                     st.pop();
                 }
-                reverse(num_str.begin(), num_str.end());
                 int num = stoi(num_str);
 
                 string part = "";
@@ -37,10 +35,9 @@ public:
             }
         }
         while(!st.empty()){
-            ans += st.top();
+            ans = st.top() + ans;
             st.pop();
         }
-        reverse(ans.begin(), ans.end());
         return ans;
     }
 };
