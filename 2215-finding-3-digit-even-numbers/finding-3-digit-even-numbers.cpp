@@ -1,30 +1,54 @@
-//brute
 class Solution {
 public:
-    vector<int> findEvenNumbers(vector<int>& nums) {
-        int n = nums.size();
-
-        set<int> allNums;
-
-        for(int i = 0; i < n; i++){
-            for(int j = 0; j < n; j++){
-                for(int k = 0; k < n; k++){
-                    if(i != j && j != k && i != k && nums[i] != 0){
-                        int num = 100*nums[i] + 10*nums[j] + nums[k];
-                        allNums.insert(num);
-                    }
-                }
-            }
-        }
-
+    vector<int> findEvenNumbers(vector<int>& digits) {
         vector<int> ans;
+        unordered_map<int, int> mpp;
 
-        for(int it : allNums){
-            if(it%2 == 0){
-                ans.push_back(it);
+        for(int it : digits){
+            mpp[it] += 1;
+        }
+
+        int a, b, c;
+
+        for(int i = 100; i <= 999; i+=2){
+            int num = i;
+            a = num%10;
+            num /= 10;
+            b = num%10;
+            num /= 10;
+            c = num%10;
+
+            bool flag_a = false, flag_b = false, flag_c = false;
+
+            if(mpp[a] > 0){
+                mpp[a] -= 1;
+                flag_a = true;
+            }
+
+            if(mpp[b] > 0){
+                mpp[b] -= 1;
+                flag_b = true;
+            }
+
+            if(mpp[c] > 0){
+                mpp[c] -= 1;
+                flag_c = true;
+            }
+
+            if(flag_a){
+                mpp[a] += 1;
+            }
+            if(flag_b){
+                mpp[b] += 1;
+            }
+            if(flag_c){
+                mpp[c] += 1;
+            }
+
+            if(flag_a && flag_b && flag_c){
+                ans.push_back(i);
             }
         }
-        sort(ans.begin(), ans.end());
         return ans;
     }
 };
