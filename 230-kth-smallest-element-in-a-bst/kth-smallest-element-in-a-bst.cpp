@@ -1,4 +1,3 @@
-//self optimal
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
@@ -11,25 +10,23 @@
  * };
  */
 class Solution {
-private:
-    void inorder(TreeNode* root, int& k, int& ans){
-		if(root){
-			inorder(root->left, k, ans);
-			//if k is 0 then we have reached kth smallest elment thus it is ans and return
-            if(--k == 0){
-				ans = root->val;
-				return;
-			}
-			
-			inorder(root->right, k, ans);
-		}
-	}
+    void inorder(TreeNode* node, int& k, int& ans){
+        if(!node)
+            return;
+        inorder(node->left, k, ans);
+        k--;
+        if(k == 0){
+            ans = node->val;
+            return;
+        }
+        inorder(node->right, k, ans);
+    }
 public:
-    int kthSmallest(TreeNode* root, int k){
-		//ans stores the kth snallest element
+    int kthSmallest(TreeNode* root, int k) {
         int ans = -1;
-        //inorder traverfsal of a BST always gives sorted order
-		inorder(root, k, ans);
-		return ans;
-	}
+        while(k > 0){
+            inorder(root, k, ans);
+        }
+        return ans;
+    }
 };
