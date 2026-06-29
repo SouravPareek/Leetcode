@@ -1,4 +1,3 @@
-//self code
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
@@ -13,14 +12,15 @@
 class Solution {
 public:
     TreeNode* searchBST(TreeNode* root, int val) {
-        //traverse the tree until we found the required node or we reach the end
-        while(root && root->val != val){
-            //move to left or right depending upon comparisons
-            root = (root->val > val) ? root->left : root->right;
+        while(root){
+            if(root->val == val){
+                return root;
+            }else if(root->val > val){
+                root = root->left;
+            }else{
+                root = root->right;
+            }
         }
-        return root;
+        return nullptr;
     }
 };
-
-//T.C : O(log2(N)), in bst search space is halved in each step, but in worst case (skewed tree) it can go up to O(N)
-//S.C : O(1), no extra space used
