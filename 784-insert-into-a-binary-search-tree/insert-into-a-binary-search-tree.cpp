@@ -32,12 +32,6 @@ public:
                 prev->right = newNode;
             else
                 prev->left = newNode;
-        }else{
-            if(!root->left && root->val > val){
-                root->left = newNode;
-            }else{
-                root->right = newNode;
-            }
         }
         
         return root;
