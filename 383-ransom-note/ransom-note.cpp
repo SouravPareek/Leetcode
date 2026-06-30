@@ -1,14 +1,15 @@
+//optimal
 class Solution {
 public:
     bool canConstruct(string ransomNote, string magazine) {
-        map<char, int>mpp;
+        vector<int> freq(26, 0);
         for(char ch : magazine)
-            mpp[ch] += 1;
+            freq[ch-'a'] += 1;
         for(char ch : ransomNote)
-            mpp[ch] -= 1;
+            freq[ch-'a'] -= 1;
 
-        for(auto &[key, value] : mpp){
-            if(value < 0)
+        for(int it: freq){
+            if(it < 0)
                 return false;
         }
         return true;
