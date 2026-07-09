@@ -1,20 +1,23 @@
-//self dp solution using tabulation(most optimal)
+//top down
 class Solution {
+private:
+    int helper(int n, vector<int>& dp){
+        if(n <= 1)
+            return n;
+        
+        if(dp[n] != -1)
+            return dp[n];
+        
+        dp[n] = helper(n-1, dp) + helper(n-2, dp);
+
+        return dp[n];
+    }
 public:
     int fib(int n) {
-        if (n == 0)
-            return 0;
-        if (n == 1)
-            return 1;
-            
-        int prev2 = 0, prev1 = 1;
+        vector<int> dp(n+1, -1);
 
-        for(int i = 2; i <= n; i++){
-            int ithFib = prev1 + prev2;
+        dp[n] = helper(n, dp);
 
-            prev2 = prev1;
-            prev1 = ithFib;
-        }
-        return prev1;
+        return dp[n];
     }
 };
