@@ -1,16 +1,17 @@
-//bottom up
+//space optimization
 class Solution {
 public:
     int climbStairs(int n) {
         if(n <= 2)
             return n;
-        vector<int> dp(n+1, -1);
-        
-        dp[0] = 0, dp[1] = 1, dp[2] = 2;
+        int prev2 = 1, prev = 2;
+        int temp;
 
         for(int i = 3; i <= n; i++){
-            dp[i] = dp[i-1] + dp[i-2];
+            temp = prev+prev2;
+            prev2 = prev;
+            prev = temp;
         }
-        return dp[n];
+        return prev;
     }
 };
