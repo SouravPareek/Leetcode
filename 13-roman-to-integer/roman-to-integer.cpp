@@ -1,40 +1,26 @@
+//optimal
 class Solution {
-private:
-    int value(char ch){
-        if(ch == 'I')
-            return 1;
-        if(ch == 'V')
-            return 5;
-        if(ch == 'X')
-            return 10;
-        if(ch == 'L')
-            return 50;
-        if(ch == 'C')
-            return 100;
-        if(ch == 'D')
-            return 500;
-        return 1000;
-    }
 public:
     int romanToInt(string s) {
-        stack<pair<char, int>> st;
-        for(char ch : s){
-            if(st.empty() || st.top().second >= value(ch)){
-                st.push({ch, value(ch)});
+        int ans = 0;
+        unordered_map<char, int> mpp = {
+            {'I', 1},
+            {'V', 5},
+            {'X', 10}, 
+            {'L', 50},
+            {'C', 100},
+            {'D', 500},
+            {'M', 1000}
+        };
+        int n = s.size();
+        for(int i = 0; i < n-1; i++){
+            if(mpp[s[i]] < mpp[s[i+1]]){
+                ans -= mpp[s[i]];
             }else{
-                int val = 0;
-                while(!st.empty() && st.top().second < value(ch)){
-                    val -= st.top().second;
-                    st.pop();
-                }
-                st.push({ch, value(ch)+val});
+                ans += mpp[s[i]];
             }
         }
-        int ans = 0;
-        while(!st.empty()){
-            ans += st.top().second;
-            st.pop();
-        }
-        return ans;
+
+        return ans + mpp[s[n-1]];
     }
 };
