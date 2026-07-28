@@ -1,28 +1,26 @@
-//self
+//optimal
 class Solution {
 public:
     string smallestPalindrome(string s) {
         vector<int> freq(26, 0);
-        for(char ch : s)
-            freq[ch-'a'] += 1;
-        string firstHalf = "";
-        char mid = 'A';
+        int n = s.length();
 
-        for(int i = 0; i < 26; i++){
-            while(freq[i] > 1){
-                char ch = i + 'a';
-                firstHalf += ch;
-                freq[i] -= 2;
-            }
-            if(freq[i] == 1)
-                mid = i+'a';
+        for(int i = 0; i < n/2; i++){
+            freq[s[i]-'a'] += 1;
         }
 
-        string ans = firstHalf + ((mid != 'A') ? string(1, mid) : "");
+        int idx = 0;
+        for(int i = 0; i < 26; i++){
+            while(freq[i]-- > 0){
+                s[idx] = (char)(i+'a');
+                idx += 1;
+            }
+        }
 
-        reverse(firstHalf.begin(), firstHalf.end());
+        for(int i = 0; i < n/2; i++){
+            s[n-1-i] = s[i];
+        }
 
-        ans += firstHalf;
-        return ans;
+        return s;
     }
 };
