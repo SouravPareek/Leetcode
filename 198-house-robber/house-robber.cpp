@@ -1,4 +1,4 @@
-//space optimization(self)
+//space optimization
 class Solution {
 public:
     int rob(vector<int>& nums) {
@@ -12,15 +12,14 @@ public:
             return max(nums[0], nums[1]);
         
         vector<int> dp(3, -1);
-        dp[0] = nums[0], dp[1] = nums[1], dp[2] = nums[0] + nums[2];
+        dp[1] = nums[0], dp[2] = max(nums[0], nums[1]);
 
-        for(int i = 3; i < n; i++){
-            int temp = nums[i] + max(dp[0], dp[1]);
+        for(int i = 2; i < n; i++){
             dp[0] = dp[1];
             dp[1] = dp[2];
-            dp[2] = temp;
+            dp[2] = max(nums[i]+dp[0], dp[1]);
         }
 
-        return max(dp[0], max(dp[1], dp[2]));
+        return dp[2];
     }
 };
