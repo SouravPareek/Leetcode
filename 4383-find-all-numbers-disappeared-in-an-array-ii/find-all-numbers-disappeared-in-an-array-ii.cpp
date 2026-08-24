@@ -1,43 +1,27 @@
 class Solution {
 public:
-    vector<vector<int>> findDisappearedNumbers(vector<int>& nums, int lower,
-                                               int upper) {
+    vector<vector<int>> findDisappearedNumbers(vector<int>& nums, int lower, int upper) {
+        vector<int> hash(upper-lower+1, 0);
+        for(int it : nums){
+            if(it >= lower && it <= upper)
+                hash[it-lower] = 1;
+        }
+
         vector<vector<int>> ans;
 
-        if (nums.size() == 0)
-            return {{lower, upper}};
+        int n = hash.size(), i = 0;
+        while(i < n){
+            if(!hash[i]){
+                int st = i;
 
-        unordered_set<int> st(nums.begin(), nums.end());
-
-        int curr_low = -1;
-        int curr_high = -1;
-
-        for (int i = lower; i < upper; i++) {
-            if (st.find(i) == st.end()) {
-                if (curr_low == -1) {
-                    curr_low = i;
-                }
-                curr_high = i;
-            } else {
-                if (curr_low != -1) {
-                    ans.push_back({curr_low, curr_high});
-                }
-                curr_low = -1;
-                curr_high = -1;
-            }
-        }
-        if (st.find(upper) == st.end()) {
-            if(curr_low != -1){
-                ans.push_back({curr_low, upper});
+                while(i < n && !hash[i])
+                    i += 1;
+                
+                ans.push_back({st+lower, i+lower-1});
             }else{
-                ans.push_back({upper, upper});
-            }
-        } else {
-            if (curr_low != -1) {
-                ans.push_back({curr_low, curr_high});
+                i += 1;
             }
         }
-
         return ans;
     }
 };
