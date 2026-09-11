@@ -10,24 +10,26 @@
  * };
  */
 class Solution {
-public:
-    pair<int, int> trav(TreeNode* root, int& count) {
-        if(root == nullptr) return {0, 0};
+    int cnt = 0;
+    pair<int, int> postorder(TreeNode* root){
+        if(!root){
+            return {0, 0};
+        }
 
-        auto [leftSum, leftCount] = trav(root->left, count);
-        auto [rightSum, rightCount] = trav(root->right, count);
+        pair<int, int> left = postorder(root->left);
+        pair<int, int> right = postorder(root->right);
 
-        int subtreeSum = leftSum + rightSum + root->val;
-        int subtreeCount = leftCount + rightCount + 1;
+        int nodeSum = left.first + right.first + root->val;
+        int nodeCnt = left.second + right.second + 1;
 
-        if(subtreeSum / subtreeCount == root->val) count++;
-
-        return {subtreeSum, subtreeCount};
+        if(root->val == (nodeSum/nodeCnt))
+            cnt += 1;
+        
+        return {nodeSum, nodeCnt};
     }
-
+public:
     int averageOfSubtree(TreeNode* root) {
-        int count = 0;
-        trav(root, count);
-        return count;
+        postorder(root);
+        return cnt;
     }
 };
