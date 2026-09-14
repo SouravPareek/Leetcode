@@ -1,4 +1,4 @@
-// self brute
+// self optimal
 class Solution {
 public:
     int threeSumClosest(vector<int>& nums, int target) {
