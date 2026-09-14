@@ -1,24 +1,27 @@
-//self brute
+// self brute
 class Solution {
 public:
     int threeSumClosest(vector<int>& nums, int target) {
         int n = nums.size();
+        sort(nums.begin(), nums.end());
 
-        int diff = INT_MAX;
-        int ans = 0;
-        
-        for(int i = 0; i < n-2; i++){
-            for(int j = i+1; j < n-1; j++){
-                for(int k = j+1; k < n; k++){
-                    int sum = nums[i]+nums[j]+nums[k];
+        int best = nums[0]+nums[1]+nums[2];
 
-                    if(abs(target-sum) < diff){
-                        ans = sum;
-                        diff = abs(target-sum);
-                    }
-                }
+        for (int i = 0; i < n - 2; i++) {
+            int l = i + 1, r = n - 1;
+            while (l < r) {
+                int sum = nums[i] + nums[l] + nums[r];
+                if (abs(target - sum) < abs(target - best)) 
+                    best = sum;
+
+                if(sum < target)
+                    l += 1;
+                else if(sum > target)
+                    r -= 1;
+                else
+                    return target;
             }
         }
-        return ans;
+        return best;
     }
 };
