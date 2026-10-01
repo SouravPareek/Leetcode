@@ -18,11 +18,10 @@ public:
                 if(st.empty())
                     return false;
                 
-                if(check(st.top(), ch)){
+                if(check(st.top(), ch))
                     st.pop();
-                }else{
+                else
                     return false;
-                }
             }
         }
         if(st.empty())
